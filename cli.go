@@ -48,9 +48,9 @@ func main() {
 	var helpFlag = flag.Bool("help", false, "View usage instructions")
 	var versionFlag = flag.Bool("version", false, "View the program version")
 	var updateSelfFlag = flag.Bool("update-self", false, "Update me to the latest version")
-	var installFlag = flag.Bool("install", false, "Install Zoidcord")
-	var updateFlag = flag.Bool("repair", false, "Repair Zoidcord")
-	var uninstallFlag = flag.Bool("uninstall", false, "Uninstall Zoidcord")
+	var installFlag = flag.Bool("install", false, "Install Nexulien")
+	var updateFlag = flag.Bool("repair", false, "Repair Nexulien")
+	var uninstallFlag = flag.Bool("uninstall", false, "Uninstall Nexulien")
 	var installOpenAsarFlag = flag.Bool("install-openasar", false, "Install OpenAsar")
 	var uninstallOpenAsarFlag = flag.Bool("uninstall-openasar", false, "Uninstall OpenAsar")
 	var locationFlag = flag.String("location", "", "The location of the Discord install to modify")
@@ -63,7 +63,7 @@ func main() {
 	}
 
 	if *versionFlag {
-		fmt.Println("Zoidcord Installer Cli", buildinfo.InstallerTag, "("+buildinfo.InstallerGitHash+")")
+		fmt.Println("Nexulien Installer Cli", buildinfo.InstallerTag, "("+buildinfo.InstallerGitHash+")")
 		fmt.Println("Copyright (C) 2023 Vendicated and Vencord contributors")
 		fmt.Println("License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.")
 		return
@@ -103,18 +103,18 @@ func main() {
 			<-SelfUpdateCheckDoneChan
 			if IsSelfOutdated {
 				Log.Warn("Your installer is outdated.")
-				Log.Warn("To update, select the 'Update Zoidcord Installer' option to update, or run with --update-self")
+				Log.Warn("To update, select the 'Update Nexulien Installer' option to update, or run with --update-self")
 			}
 		}()
 
 		choices := []string{
-			"Install Zoidcord",
-			"Repair Zoidcord",
-			"Uninstall Zoidcord",
+			"Install Nexulien",
+			"Repair Nexulien",
+			"Uninstall Nexulien",
 			"Install OpenAsar",
 			"Uninstall OpenAsar",
 			"View Help Menu",
-			"Update Zoidcord Installer",
+			"Update Nexulien Installer",
 			"Quit",
 		}
 		_, choice, err := (&promptui.Select{
@@ -129,7 +129,7 @@ func main() {
 			return
 		case "Quit":
 			return
-		case "Update Zoidcord Installer":
+		case "Update Nexulien Installer":
 			if err := UpdateSelf(); err != nil {
 				Log.Error("Failed to update self:", err)
 				exitFailure()
@@ -147,7 +147,7 @@ func main() {
 	} else if uninstall {
 		errSilent = PromptDiscord("unpatch", *locationFlag, *branchFlag).unpatch()
 	} else if update {
-		Log.Info("Downloading latest Zoidcord files...")
+		Log.Info("Downloading latest Nexulien files...")
 		err := installLatestBuilds()
 		Log.Info("Done!")
 		if err == nil {
@@ -277,5 +277,5 @@ func HandleScuffedInstall() {
 	fmt.Println("Hold On!")
 	fmt.Println("You have a broken Discord Install.")
 	fmt.Println("Please reinstall Discord before proceeding!")
-	fmt.Println("Otherwise, Zoidcord will likely not work.")
+	fmt.Println("Otherwise, Nexulien will likely not work.")
 }
